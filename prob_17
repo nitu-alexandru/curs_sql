@@ -1,0 +1,27 @@
+--17.
+--Find Customers with No Orders for a Specific Period
+--Write a query to find customers who haven't made any purchases in 2022.
+
+with cte1 as (
+--adu mi bulk tot cu achitizii in 2022 dar ii vreau distinct
+select distinct(s.customerid) as CUSTOMER_ID_SALES, c.firstname, c.lastname 
+FROM sales s
+INNER JOIN customers c
+ON s.customerid = c.customerid
+where c.customerid in (select s.customerid from sales s where EXTRACT(YEAR FROM s.SaleDate) = 2022)
+
+), 
+
+-- adu mi tot ce este diferit de 2022 in sales dar da mi si pe cei cu 0 achizitii
+cte2 as  (
+select distinct(s.customerid) as CUSTOMER_ID_SALES,  c.firstname, c.lastname
+FROM sales s
+right JOIN customers c
+ON s.customerid = c.customerid
+where c.customerid  in (select s.customerid from sales s where EXTRACT(YEAR FROM s.SaleDate) != 2022) or s.customerid is null
+)
+select * from cte2
+--unde am match de rand intre cte2 si cte1 inseamna ca ala e client cu achiziti si in 2022 si in alt an-> nu ma interesaza -> folosesc minus
+-- adu mi acum toate inregistrarile ca nu se match-uiesc cu cte1 (tabelul cu cei care au achiziti in 2022)
+MINUS
+select * from cte1;
