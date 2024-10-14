@@ -1,6 +1,11 @@
 --11.List Books and Their Authors
--- Write a query to display the title of each book along with the author’s first and last name.
+-- Write a query to display the title of each book along with the authorâ€™s first and last name.
 -- VARIANTA MID 
+-- PENTRU TESTE
+--INSERT INTO AUTHORS VALUES (5,'ALEXANDRU', 'NITU','USA');
+--INSERT INTO AUTHORS VALUES (6,'MIHAI', 'EMINESCU','USA');
+--INSERT INTO BOOKSAUTHORS VALUES (5,5);
+--INSERT INTO BOOKSAUTHORS VALUES (5,6);
 
 SELECT 
 b.TITLE
